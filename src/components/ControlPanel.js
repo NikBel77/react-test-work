@@ -16,8 +16,15 @@ class ControlPanel extends React.Component {
 
         this.demoBtnShort = React.createRef();
         this.demoBtnLong = React.createRef();
+        this.searchInput = React.createRef();
 
         this.handleNewPersonDate = this.handleNewPersonDate.bind(this);
+    }
+
+    searchByStr() {
+        const str = this.searchInput.current.value;
+        this.searchInput.current.value = '';
+        this.props.onSearch(str);
     }
 
     disabledDemoButtons() {
@@ -86,8 +93,12 @@ class ControlPanel extends React.Component {
                         </div>
 
                         <div className='search-panel'>
-                            <input type='text'></input>
-                            <button className='btn btn-primary'>Search</button>
+                            <input type='text' ref={this.searchInput}></input>
+                            <button 
+                                className='btn btn-primary'
+                                onClick={() => this.searchByStr()}>
+                                Search
+                            </button>
                         </div>
                     </div>
 

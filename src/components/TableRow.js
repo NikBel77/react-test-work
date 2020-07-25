@@ -6,7 +6,7 @@ function TableRow(props) {
 
     return (
         <tr 
-            onClick={ () => props.onIdChange(id) }
+            onClick={ () => props.onIdChange(props.personData) }
             className={ props.isSelected ? 'bg-danger' : '' }>
             <td>{ id }</td>
             <td>{ firstName }</td>

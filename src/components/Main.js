@@ -11,17 +11,26 @@ class Main extends React.Component {
         this.state = {
             data: [],
             selectedPerson: false,
-            selectedPersonId: false,
+
             columnSort: {
                 columnName: 'id',
                 isReverseDirection: false,
-            }
+            },
+
+            searchStr: '',
         };
 
         this.selectPerson = this.selectPerson.bind(this);
         this.addNewPerson = this.addNewPerson.bind(this);
         this.setNewTableData = this.setNewTableData.bind(this);
         this.changeActiveColumn = this.changeActiveColumn.bind(this);
+        this.changeSearchStr = this.changeSearchStr.bind(this);
+    }
+
+    changeSearchStr(searchStr) {
+        this.setState({
+            searchStr,
+        })
     }
 
     changeActiveColumn(columnName) {
@@ -55,20 +64,25 @@ class Main extends React.Component {
         })
     }
 
-    selectPerson(id) {
+    selectPerson(selectedPerson) {
         this.setState({
-            selectedPerson: findPersonById(this.state.data, id),
-            selectedPersonId: id,
+            selectedPerson,
         })
     }
 
-    render() {
-        const sortedData = sortByColumnName
+    mainFilter(data) {
+        let sortedData = sortByColumnName
             (
-                this.state.data,
+                filterByStr(data, this.state.searchStr),
                 this.state.columnSort.columnName,
                 this.state.columnSort.isReverseDirection
             );
+        
+        return sortedData
+    }
+
+    render() {
+        const sortedData = this.mainFilter(this.state.data);
 
         return (
             <main>
@@ -76,6 +90,7 @@ class Main extends React.Component {
                 <ControlPanel
                     onNewPerson={this.addNewPerson}
                     onDataLoaded={this.setNewTableData}
+                    onSearch={this.changeSearchStr}
                 />
 
                 <hr />
@@ -83,7 +98,7 @@ class Main extends React.Component {
                 <DataTable
                     dataList={sortedData}
                     onSelectPerson={this.selectPerson}
-                    activeId={this.state.selectedPersonId}
+                    activePerson={this.state.selectedPerson}
                     activeColumn={this.state.columnSort}
                     onChangeActiveColumn={this.changeActiveColumn}
                 />

@@ -3,7 +3,21 @@ function paginationFilter(arrayData, currentPage, rowOnPage) {
 }
 
 function filterByStr(arrayData, str) {
-    // return arrayData.map(() => {});
+    if(!str) return arrayData;
+    
+    return arrayData.filter((personData) => {
+
+        return Object.keys(personData).some((key) => {
+
+            if(typeof personData[key] === 'string') {
+                return personData[key].includes(str);
+            }
+            if(typeof personData[key] === 'number') {
+                return (personData[key] + '').includes(str);
+            }
+            return false;
+        })
+    });
 }
 
 function sortByColumnName(arrayData, sortingFild, isReverseSort = false) {

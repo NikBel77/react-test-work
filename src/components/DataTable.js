@@ -16,11 +16,11 @@ const tableHeaderMap = new Map([
 class DataTable extends React.Component {
     constructor(props) {
         super(props);
-        this.handleIdChange = this.handleIdChange.bind(this)
+        this.handleIdChange = this.handleIdChange.bind(this);
     }
 
-    handleIdChange(id) {
-        this.props.onSelectPerson(id)
+    handleIdChange(personData) {
+        this.props.onSelectPerson(personData);
     }
 
     render() {
@@ -52,7 +52,7 @@ class DataTable extends React.Component {
                     </thead>
                     <tbody>
                         {this.props.dataList.map((personData, i) => {
-                            const isSelected = this.props.activeId === personData.id;
+                            const isSelected = this.props.activePerson === personData;
 
                             return (
                                 <TableRow
