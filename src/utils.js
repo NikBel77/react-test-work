@@ -7,7 +7,29 @@ function filterByStr(arrayData, str) {
 }
 
 function sortByColumnName(arrayData, sortingFild, isReverseSort = false) {
-    // return arrayData.sort((person1, person2) => {});
+    if(sortingFild === 'id') {
+
+        if(isReverseSort) {
+            return arrayData.sort((person1, person2) => {
+                return (+person2[sortingFild]) - (+person1[sortingFild]);
+            });
+        } else {
+            return arrayData.sort((person1, person2) => {
+                return (+person1[sortingFild]) - (+person2[sortingFild]);
+            });
+        }
+    } else {
+        
+        if(isReverseSort) {
+            return arrayData.sort((person1, person2) => {
+                return person2[sortingFild].localeCompare(person1[sortingFild]);
+            });
+        } else {
+            return arrayData.sort((person1, person2) => {
+                return person1[sortingFild].localeCompare(person2[sortingFild]);
+            });
+        }
+    }
 }
 
 function findPersonById(arrayData, id) {

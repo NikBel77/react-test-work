@@ -12,11 +12,35 @@ class Main extends React.Component {
             data: [],
             selectedPerson: false,
             selectedPersonId: false,
+            columnSort: {
+                columnName: 'id',
+                isReverseDirection: false,
+            }
         };
 
         this.selectPerson = this.selectPerson.bind(this);
         this.addNewPerson = this.addNewPerson.bind(this);
         this.setNewTableData = this.setNewTableData.bind(this);
+        this.changeActiveColumn = this.changeActiveColumn.bind(this);
+    }
+
+    changeActiveColumn(columnName) {
+        if(this.state.columnSort.columnName === columnName) {
+            const direction = !this.state.columnSort.isReverseDirection;
+            this.setState({
+                columnSort: {
+                    columnName,
+                    isReverseDirection: direction,
+                }
+            })
+        } else {
+            this.setState({
+                columnSort: {
+                    columnName,
+                    isReverseDirection: false,
+                }
+            })
+        }
     }
 
     setNewTableData(data) {
@@ -39,6 +63,13 @@ class Main extends React.Component {
     }
 
     render() {
+        const sortedData = sortByColumnName
+            (
+                this.state.data,
+                this.state.columnSort.columnName,
+                this.state.columnSort.isReverseDirection
+            );
+
         return (
             <main>
 
@@ -50,9 +81,11 @@ class Main extends React.Component {
                 <hr />
 
                 <DataTable
-                    dataList={this.state.data}
+                    dataList={sortedData}
                     onSelectPerson={this.selectPerson}
                     activeId={this.state.selectedPersonId}
+                    activeColumn={this.state.columnSort}
+                    onChangeActiveColumn={this.changeActiveColumn}
                 />
 
                 <hr />
