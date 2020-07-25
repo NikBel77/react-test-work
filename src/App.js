@@ -1,18 +1,18 @@
-import React from 'react';
+import React from 'react'
 import Header from './components/Header'
 import Main from './components/Main'
 
 class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
+    render() {
+        return (
+            <div className="App">
 
-        <Header />
-        <Main />
+                <Header />
+                <Main />
 
-      </div>
-    )
-  }
+            </div>
+        )
+    }
 }
 
 export default App;

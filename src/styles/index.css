@@ -1,0 +1,17 @@
+.search-panel {
+    display: flex;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.search-panel button {
+    margin-left: 5px;
+}
+
+.demo-loader button {
+    margin-right: 10px;
+}
+
+.add-form {
+    margin-top: 10px;
+}
