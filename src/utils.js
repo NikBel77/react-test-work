@@ -11,7 +11,7 @@ function sortByColumnName(arrayData, sortingFild, isReverseSort = false) {
 }
 
 function findPersonById(arrayData, id) {
-    // return arrayData.find((person) => person.id === id)
+    return arrayData.find((person) => person.id === id)
 }
 
 export { paginationFilter, filterByStr, sortByColumnName, findPersonById }

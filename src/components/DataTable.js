@@ -1,6 +1,8 @@
 import React from 'react'
 import TableRow from './TableRow'
 
+import caretRight from '../icons/caret-r.svg'
+
 class DataTable extends React.Component {
     constructor(props) {
         super(props);
@@ -17,11 +19,21 @@ class DataTable extends React.Component {
                 <table className="table table-hover table-sm table-dark">
                     <thead>
                         <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">First name</th>
-                            <th scope="col">Last name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Phone</th>
+                            <th scope="col">
+                                id<img className='table-caret' src={caretRight} alt='caret'/>
+                            </th>
+                            <th scope="col">
+                                First name<img className='table-caret' src={caretRight} alt='caret'/>
+                            </th>
+                            <th scope="col">
+                                Last name<img className='table-caret' src={caretRight} alt='caret'/>
+                            </th>
+                            <th scope="col">
+                                Email<img className='table-caret' src={caretRight} alt='caret'/>
+                            </th>
+                            <th scope="col">
+                                Phone<img className='table-caret' src={caretRight} alt='caret'/>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
