@@ -1,7 +1,10 @@
 import React from 'react'
 import AddForm from './addForm'
+
 import plus from '../icons/plus.svg'
 import close from '../icons/close.svg'
+
+import { LONG_LIST_URL, SHORT_LIST_URL } from '../constants'
 
 class ControlPanel extends React.Component {
     constructor(props) {
@@ -11,19 +14,51 @@ class ControlPanel extends React.Component {
             isAddFormHide: true,
         }
 
-        this.handleNewPersonDate = this.handleNewPersonDate.bind(this)
+        this.demoBtnShort = React.createRef();
+        this.demoBtnLong = React.createRef();
+
+        this.handleNewPersonDate = this.handleNewPersonDate.bind(this);
+    }
+
+    disabledDemoButtons() {
+        this.demoBtnShort.current.classList.add('disabled');
+        this.demoBtnLong.current.classList.add('disabled');
+
+        this.demoBtnShort.current.setAttribute('disabled', 'disabled');
+        this.demoBtnLong.current.setAttribute('disabled', 'disabled');
+    }
+
+    activateDemoButtons() {
+        this.demoBtnShort.current.classList.remove('disabled');
+        this.demoBtnLong.current.classList.remove('disabled');
+
+        this.demoBtnShort.current.removeAttribute('disabled', 'disabled');
+        this.demoBtnLong.current.removeAttribute('disabled', 'disabled');
     }
 
     toggleAddForm() {
-        if(this.state.isAddFormHide) {
-            this.setState({isAddFormHide: false})
+        if (this.state.isAddFormHide) {
+            this.setState({ isAddFormHide: false });
         } else {
-            this.setState({isAddFormHide: true})
+            this.setState({ isAddFormHide: true });
         }
     }
 
+    async loadDemoData(e, url) {
+        this.disabledDemoButtons();
+
+        const text = e.target.innerText;
+        e.target.innerText = 'Loading';
+
+        const data = await fetch(url).then((res) => res.json());
+        this.props.onDataLoaded(data);
+
+        e.target.innerText = text;
+        this.activateDemoButtons()
+    }
+
     handleNewPersonDate(personData) {
-        if(typeof personData !== 'object') throw new Error('Person data type must be object');
+        if (typeof personData !== 'object') throw new Error('Person data type must be object');
         this.props.onNewPerson(personData);
     }
 
@@ -36,8 +71,18 @@ class ControlPanel extends React.Component {
 
                     <div className='control-panel__left'>
                         <div className='demo-loader'>
-                            <button className='btn btn-success'>short demo list</button>
-                            <button className='btn btn-danger'>long demo list</button>
+                            <button
+                                ref={this.demoBtnShort}
+                                className='btn btn-success'
+                                onClick={(e) => this.loadDemoData(e.nativeEvent, SHORT_LIST_URL)}>
+                                short demo list
+                            </button>
+                            <button
+                                ref={this.demoBtnLong}
+                                className='btn btn-danger'
+                                onClick={(e) => this.loadDemoData(e.nativeEvent, LONG_LIST_URL)}>
+                                long demo list
+                            </button>
                         </div>
 
                         <div className='search-panel'>
@@ -48,7 +93,7 @@ class ControlPanel extends React.Component {
 
                     <div className='control-panel__right'>
                         <div>
-                            <button 
+                            <button
                                 className='btn btn-light'
                                 onClick={() => this.toggleAddForm()}>
 
@@ -59,8 +104,8 @@ class ControlPanel extends React.Component {
 
                             </button>
 
-                            <div style={{display: displayForm}}>
-                                <AddForm onCreateNewPerson={this.handleNewPersonDate}/>
+                            <div style={{ display: displayForm }}>
+                                <AddForm onCreateNewPerson={this.handleNewPersonDate} />
                             </div>
                         </div>
                     </div>

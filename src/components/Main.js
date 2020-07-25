@@ -3,20 +3,24 @@ import DataTable from './DataTable'
 import PersonInfo from './PersonInfo'
 import ControlPanel from './ControlPanel'
 import { paginationFilter, filterByStr, sortByColumnName, findPersonById } from '../utils'
-import { testData } from '../constants'
 
 class Main extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            data: testData,
+            data: [],
             selectedPerson: false,
             selectedPersonId: false,
         };
 
         this.selectPerson = this.selectPerson.bind(this);
         this.addNewPerson = this.addNewPerson.bind(this);
+        this.setNewTableData = this.setNewTableData.bind(this);
+    }
+
+    setNewTableData(data) {
+        this.setState({ data: data });
     }
 
     addNewPerson(person) {
@@ -38,7 +42,10 @@ class Main extends React.Component {
         return (
             <main>
 
-                <ControlPanel onNewPerson={this.addNewPerson}/>
+                <ControlPanel
+                    onNewPerson={this.addNewPerson}
+                    onDataLoaded={this.setNewTableData}
+                />
 
                 <hr />
 

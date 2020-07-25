@@ -14,6 +14,12 @@ class DataTable extends React.Component {
     }
 
     render() {
+        if(!this.props.dataList.length) return (
+            <div className='container'>
+                <p>no data</p>
+            </div>
+        );
+
         return (
             <div className='container'>
                 <table className="table table-hover table-sm table-dark">
