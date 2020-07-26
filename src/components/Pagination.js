@@ -4,6 +4,8 @@ import rightArrow from '../icons/right-arr.svg'
 import { countPaginationNumbers } from '../utils'
 
 function Pagination(props) {
+    if(props.numberOfPages <= 1) return null;
+
     const pagination = countPaginationNumbers(props.currentPage, props.numberOfPages);
     const leftArrowClass = pagination[0] === props.currentPage ? 'page-item disabled' : 'page-item';
     const rightArrowClass = pagination[pagination.length - 1] === props.currentPage ? 'page-item disabled ' : 'page-item';
@@ -12,7 +14,12 @@ function Pagination(props) {
         <div>
             <div className='pagination-wrapper'>
                 <ul className='pagination'>
-                    <li className={leftArrowClass}>
+                    <li 
+                        className={leftArrowClass}
+                        onClick={() => {
+                            if(props.currentPage - 1 >= 1)
+                                props.onPageChange(props.currentPage - 1);
+                        }}>
                         <img className='page-link' src={leftArrow} alt='arrow'/>
                     </li>
 
@@ -34,7 +41,12 @@ function Pagination(props) {
                         }
                     })}
 
-                    <li className={rightArrowClass}>
+                    <li 
+                        className={rightArrowClass}
+                        onClick={() => {
+                            if(props.currentPage + 1 <= props.numberOfPages)
+                                props.onPageChange(props.currentPage + 1);
+                        }}>
                         <img className='page-link' src={rightArrow} alt='arrow'/>
                     </li>
                 </ul>

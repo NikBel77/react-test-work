@@ -26,3 +26,23 @@
     align-items: center;
     margin-bottom: 10px;
 }
+
+.pagination li {
+    cursor: pointer;
+}
+
+.pagination .disabled {
+    cursor: default !important;
+}
+
+thead th {
+    cursor: pointer;
+}
+
+thead th:hover {
+    background-color: #d9534f;
+}
+
+tbody tr {
+    cursor: pointer;
+}

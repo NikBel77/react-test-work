@@ -83,8 +83,4 @@ function countPaginationNumbers(currentPage, numberOfPages) {
     return pagination;
 }
 
-function findPersonById(arrayData, id) {
-    return arrayData.find((person) => person.id === id)
-}
-
-export { paginationFilter, filterByStr, sortByColumnName, findPersonById, countPaginationNumbers }
+export { paginationFilter, filterByStr, sortByColumnName, countPaginationNumbers }
