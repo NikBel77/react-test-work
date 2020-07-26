@@ -19,3 +19,10 @@
 .table-caret {
     margin: 0 0 3px 5px;
 }
+
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}

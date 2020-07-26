@@ -1,5 +1,12 @@
 function paginationFilter(arrayData, currentPage, rowOnPage) {
-    if(typeof arrayData !== 'Array') throw new Error('type of data mast be array');
+    if(!arrayData.length) return arrayData
+    
+    const startIndex = currentPage > 1 ? ((currentPage - 1) * rowOnPage) - 1 : 0;
+    if(arrayData.length > startIndex + rowOnPage) {
+        return arrayData.slice(startIndex, startIndex + rowOnPage);
+    } else {
+        return arrayData.slice(startIndex);
+    }
 }
 
 function filterByStr(arrayData, str) {

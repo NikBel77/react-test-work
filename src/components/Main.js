@@ -2,7 +2,9 @@ import React from 'react'
 import DataTable from './DataTable'
 import PersonInfo from './PersonInfo'
 import ControlPanel from './ControlPanel'
-import { paginationFilter, filterByStr, sortByColumnName, findPersonById } from '../utils'
+import { paginationFilter, filterByStr, sortByColumnName } from '../utils'
+import Pagination from './Pagination'
+import { ROWS_ON_TABLE } from '../constants'
 
 class Main extends React.Component {
     constructor(props) {
@@ -18,6 +20,7 @@ class Main extends React.Component {
             },
 
             searchStr: '',
+            currentPage: 1,
         };
 
         this.selectPerson = this.selectPerson.bind(this);
@@ -25,16 +28,15 @@ class Main extends React.Component {
         this.setNewTableData = this.setNewTableData.bind(this);
         this.changeActiveColumn = this.changeActiveColumn.bind(this);
         this.changeSearchStr = this.changeSearchStr.bind(this);
+        this.changeCurrentPage = this.changeCurrentPage.bind(this);
     }
 
     changeSearchStr(searchStr) {
-        this.setState({
-            searchStr,
-        })
+        this.setState({ searchStr })
     }
 
     changeActiveColumn(columnName) {
-        if(this.state.columnSort.columnName === columnName) {
+        if (this.state.columnSort.columnName === columnName) {
             const direction = !this.state.columnSort.isReverseDirection;
             this.setState({
                 columnSort: {
@@ -52,8 +54,13 @@ class Main extends React.Component {
         }
     }
 
+    changeCurrentPage(currentPage) {
+        this.setState({ currentPage });
+    }
+
     setNewTableData(data) {
-        this.setState({ data: data });
+        if(!data) return
+        this.setState({ data });
     }
 
     addNewPerson(person) {
@@ -71,18 +78,26 @@ class Main extends React.Component {
     }
 
     mainFilter(data) {
+        if(!data) throw new Error('empty Data')
+        if(!data.length) return data
+
         let sortedData = sortByColumnName
             (
                 filterByStr(data, this.state.searchStr),
                 this.state.columnSort.columnName,
                 this.state.columnSort.isReverseDirection
             );
-        
+
         return sortedData
     }
 
     render() {
         const sortedData = this.mainFilter(this.state.data);
+
+        const numberOfPages = Math.floor(sortedData.length / ROWS_ON_TABLE) 
+            + ((sortedData.length % ROWS_ON_TABLE) > 0 ? 1 : 0);
+
+        const resData = paginationFilter(sortedData, this.state.currentPage, ROWS_ON_TABLE);
 
         return (
             <main>
@@ -95,8 +110,14 @@ class Main extends React.Component {
 
                 <hr />
 
+                <Pagination 
+                    numberOfPages={numberOfPages}
+                    currentPage={this.state.currentPage}
+                    onPageChange={this.changeCurrentPage}
+                />
+
                 <DataTable
-                    dataList={sortedData}
+                    dataList={resData}
                     onSelectPerson={this.selectPerson}
                     activePerson={this.state.selectedPerson}
                     activeColumn={this.state.columnSort}

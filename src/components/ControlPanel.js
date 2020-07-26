@@ -57,11 +57,20 @@ class ControlPanel extends React.Component {
         const text = e.target.innerText;
         e.target.innerText = 'Loading';
 
-        const data = await fetch(url).then((res) => res.json());
-        this.props.onDataLoaded(data);
+        const data = await fetch(url)
+            .then((res) => res.json())
+            .catch((error) => {
+                const alert = document.createElement('div');
+                alert.innerText = error;
+                alert.classList.add('alert', 'alert-danger')
+                document.body.appendChild(alert);
+                setTimeout(() => document.body.removeChild(alert), 2000);
+            });
 
         e.target.innerText = text;
-        this.activateDemoButtons()
+        this.activateDemoButtons();
+
+        if(data) this.props.onDataLoaded(data);
     }
 
     handleNewPersonDate(personData) {
@@ -94,7 +103,7 @@ class ControlPanel extends React.Component {
 
                         <div className='search-panel'>
                             <input type='text' ref={this.searchInput}></input>
-                            <button 
+                            <button
                                 className='btn btn-primary'
                                 onClick={() => this.searchByStr()}>
                                 Search
