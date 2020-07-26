@@ -1,6 +1,6 @@
 function paginationFilter(arrayData, currentPage, rowOnPage) {
     if(!arrayData.length) return arrayData
-    
+
     const startIndex = currentPage > 1 ? ((currentPage - 1) * rowOnPage) - 1 : 0;
     if(arrayData.length > startIndex + rowOnPage) {
         return arrayData.slice(startIndex, startIndex + rowOnPage);
@@ -53,8 +53,38 @@ function sortByColumnName(arrayData, sortingFild, isReverseSort = false) {
     }
 }
 
+function countPaginationNumbers(currentPage, numberOfPages) {
+    const pagination = [];
+    pagination.push(currentPage);
+
+    for (let i = 0, leftCount = 1, rightCount = 1; i < 6; i += 1) {
+        if (i % 2 === 0) {
+
+            if (currentPage + rightCount <= numberOfPages) {
+                pagination.push(currentPage + rightCount);
+                rightCount += 1;
+            } else if (currentPage - leftCount > 0) {
+                pagination.push(currentPage - leftCount);
+                leftCount += 1;
+            };
+        } else {
+            
+            if (currentPage - leftCount > 0) {
+                pagination.push(currentPage - leftCount);
+                leftCount += 1;
+            } else if (currentPage + rightCount <= numberOfPages) {
+                pagination.push(currentPage + rightCount);
+                rightCount += 1;
+            };
+        }
+    }
+    pagination.sort((a, b) => a - b);
+
+    return pagination;
+}
+
 function findPersonById(arrayData, id) {
     return arrayData.find((person) => person.id === id)
 }
 
-export { paginationFilter, filterByStr, sortByColumnName, findPersonById }
+export { paginationFilter, filterByStr, sortByColumnName, findPersonById, countPaginationNumbers }

@@ -1,36 +1,42 @@
 import React from 'react'
 import leftArrow from '../icons/left-arr.svg'
 import rightArrow from '../icons/right-arr.svg'
-import { ROWS_ON_TABLE } from '../constants'
+import { countPaginationNumbers } from '../utils'
 
 function Pagination(props) {
-
-    const pagination = new Array(props.numberOfPages).fill(0)
-        .map((_, i) => {
-            if (i + 1 === props.currentPage) {
-                return (
-                    <li key={i} className='page-item active'>
-                        <span className='page-link'>{i + 1}</span>
-                    </li>
-                )
-            } else {
-                return (
-                    <li key={i}
-                        className='page-item'
-                        onClick={() => props.onPageChange(i + 1)}>
-                        <span className='page-link'>{i + 1}</span>
-                    </li>
-                )
-            }
-        });
+    const pagination = countPaginationNumbers(props.currentPage, props.numberOfPages);
+    const leftArrowClass = pagination[0] === props.currentPage ? 'page-item disabled' : 'page-item';
+    const rightArrowClass = pagination[pagination.length - 1] === props.currentPage ? 'page-item disabled ' : 'page-item';
 
     return (
         <div>
             <div className='pagination-wrapper'>
                 <ul className='pagination'>
-                    <li className='page-item'><img className='page-link' src={leftArrow} /></li>
-                    {pagination}
-                    <li className='page-item'><img className='page-link' src={rightArrow} /></li>
+                    <li className={leftArrowClass}>
+                        <img className='page-link' src={leftArrow} alt='arrow'/>
+                    </li>
+
+                    {pagination.map((el, i) => {
+                        if (el === props.currentPage) {
+                            return (
+                                <li key={i} className='page-item active'>
+                                    <span className='page-link'>{el}</span>
+                                </li>
+                            )
+                        } else {
+                            return (
+                                <li key={i}
+                                    className='page-item'
+                                    onClick={() => props.onPageChange(el)}>
+                                    <span className='page-link'>{el}</span>
+                                </li>
+                            )
+                        }
+                    })}
+
+                    <li className={rightArrowClass}>
+                        <img className='page-link' src={rightArrow} alt='arrow'/>
+                    </li>
                 </ul>
             </div>
         </div>
