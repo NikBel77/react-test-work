@@ -1,9 +1,11 @@
 import React from 'react'
+
 import DataTable from './DataTable'
 import PersonInfo from './PersonInfo'
 import ControlPanel from './ControlPanel'
-import { paginationFilter, filterByStr, sortByColumnName } from '../utils'
 import Pagination from './Pagination'
+
+import { paginationFilter, filterByStr, sortByColumnName } from '../utils'
 import { ROWS_ON_TABLE } from '../constants'
 
 class Main extends React.Component {
@@ -23,16 +25,24 @@ class Main extends React.Component {
             currentPage: 1,
         };
 
-        this.selectPerson = this.selectPerson.bind(this);
+
         this.addNewPerson = this.addNewPerson.bind(this);
-        this.setNewTableData = this.setNewTableData.bind(this);
         this.changeActiveColumn = this.changeActiveColumn.bind(this);
-        this.changeSearchStr = this.changeSearchStr.bind(this);
-        this.changeCurrentPage = this.changeCurrentPage.bind(this);
     }
 
-    changeSearchStr(searchStr) {
-        this.setState({ searchStr })
+    changeState(prop, value) {
+        if(!value && prop !== 'searchStr') return;
+        if(prop === 'data') {
+            this.setState({
+                data: value,
+                searchStr: '',
+                currentPage: 1,
+            })
+        } else {
+            this.setState({
+                [prop]: value,
+            })
+        }
     }
 
     changeActiveColumn(columnName) {
@@ -54,26 +64,11 @@ class Main extends React.Component {
         }
     }
 
-    changeCurrentPage(currentPage) {
-        this.setState({ currentPage });
-    }
-
-    setNewTableData(data) {
-        if(!data) return
-        this.setState({ data });
-    }
-
     addNewPerson(person) {
         const data = this.state.data;
         data.push(person);
         this.setState({
             data,
-        })
-    }
-
-    selectPerson(selectedPerson) {
-        this.setState({
-            selectedPerson,
         })
     }
 
@@ -97,28 +92,32 @@ class Main extends React.Component {
         const numberOfPages = Math.floor(sortedData.length / ROWS_ON_TABLE) 
             + ((sortedData.length % ROWS_ON_TABLE) > 0 ? 1 : 0);
 
-        const resData = paginationFilter(sortedData, this.state.currentPage, ROWS_ON_TABLE);
+        const resCurrentPage = this.state.currentPage <= numberOfPages
+            ? this.state.currentPage
+            : numberOfPages;
+        const resData = paginationFilter(sortedData, resCurrentPage, ROWS_ON_TABLE);
+
 
         return (
             <main>
 
                 <ControlPanel
                     onNewPerson={this.addNewPerson}
-                    onDataLoaded={this.setNewTableData}
-                    onSearch={this.changeSearchStr}
+                    onDataLoaded={(value) => this.changeState('data', value)}
+                    onSearch={(value) => this.changeState('searchStr', value)}
                 />
 
                 <hr />
 
                 <Pagination 
                     numberOfPages={numberOfPages}
-                    currentPage={this.state.currentPage}
-                    onPageChange={this.changeCurrentPage}
+                    currentPage={resCurrentPage}
+                    onPageChange={(value) => this.changeState('currentPage', value)}
                 />
 
                 <DataTable
                     dataList={resData}
-                    onSelectPerson={this.selectPerson}
+                    onSelectPerson={(value) => this.changeState('selectedPerson', value)}
                     activePerson={this.state.selectedPerson}
                     activeColumn={this.state.columnSort}
                     onChangeActiveColumn={this.changeActiveColumn}

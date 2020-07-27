@@ -17,7 +17,7 @@ function filterByStr(arrayData, str) {
         return Object.keys(personData).some((key) => {
 
             if(typeof personData[key] === 'string') {
-                return personData[key].includes(str);
+                return personData[key].toLowerCase().includes(str.toLowerCase());
             }
             if(typeof personData[key] === 'number') {
                 return (personData[key] + '').includes(str);

@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="control-panel"
+  >
+    <div
+      className="control-panel__left"
+    >
+      <div
+        className="demo-loader"
+      >
+        <button
+          className="btn btn-success"
+          onClick={[Function]}
+        >
+          short demo list
+        </button>
+        <button
+          className="btn btn-danger"
+          onClick={[Function]}
+        >
+          long demo list
+        </button>
+      </div>
+      <div
+        className="search-panel"
+      >
+        <input
+          type="text"
+        />
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          Search
+        </button>
+      </div>
+    </div>
+    <div
+      className="control-panel__right"
+    >
+      <div>
+        <button
+          className="btn btn-light"
+          onClick={[Function]}
+        >
+          <img
+            alt="plus"
+            src="plus.svg"
+          />
+        </button>
+        <div
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+        >
+          <form
+            className="add-form"
+          >
+            <div
+              className="form-row"
+            >
+              <div
+                className="form-group col-md-1"
+              >
+                <label
+                  htmlFor="inputId"
+                >
+                  ID
+                </label>
+                <input
+                  className="form-control"
+                  data-name="id"
+                  id="inputId"
+                  placeholder="id"
+                  type="text"
+                />
+              </div>
+              <div
+                className="form-group col-md-3"
+              >
+                <label
+                  htmlFor="inputName"
+                >
+                  First name
+                </label>
+                <input
+                  className="form-control"
+                  data-name="firstName"
+                  id="inputName"
+                  placeholder="enter name"
+                  type="text"
+                />
+              </div>
+              <div
+                className="form-group col-md-3"
+              >
+                <label
+                  htmlFor="inputLastName"
+                >
+                  Last name
+                </label>
+                <input
+                  className="form-control"
+                  data-name="lastName"
+                  id="inputLastName"
+                  placeholder="enter last name"
+                  type="text"
+                />
+              </div>
+              <div
+                className="form-group col-md-3"
+              >
+                <label
+                  htmlFor="inputEmail"
+                >
+                  Email
+                </label>
+                <input
+                  className="form-control"
+                  data-name="email"
+                  id="inputEmail"
+                  placeholder="email"
+                  type="email"
+                />
+              </div>
+              <div
+                className="form-group col-md-2"
+              >
+                <label
+                  htmlFor="inputPhone"
+                >
+                  Phone
+                </label>
+                <input
+                  className="form-control"
+                  data-name="phone"
+                  id="inputPhone"
+                  placeholder="phone"
+                  type="text"
+                />
+              </div>
+            </div>
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+            >
+              Add
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

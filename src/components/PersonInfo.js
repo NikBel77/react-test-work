@@ -13,7 +13,7 @@ function PersonInfo(props) {
 
         const name = `${props.personInfo.firstName} ${props.personInfo.lastName}`;
         const { city, state, streetAddress, zip } = props.personInfo.address;
-        const description = props.personInfo.description;
+        const description = props.personInfo.description || 'no description';
 
         return (
             <div className='container'>

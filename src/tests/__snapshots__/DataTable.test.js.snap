@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `
+<div
+  className="container"
+>
+  <table
+    className="table table-hover table-sm table-dark"
+  >
+    <thead>
+      <tr>
+        <th
+          onClick={[Function]}
+          scope="col"
+        >
+          ID
+          <img
+            alt="caret"
+            className="table-caret"
+            src="caret-r.svg"
+          />
+        </th>
+        <th
+          onClick={[Function]}
+          scope="col"
+        >
+          First name
+          <img
+            alt="caret"
+            className="table-caret"
+            src="caret-r.svg"
+          />
+        </th>
+        <th
+          onClick={[Function]}
+          scope="col"
+        >
+          Last name
+          <img
+            alt="caret"
+            className="table-caret"
+            src="caret-r.svg"
+          />
+        </th>
+        <th
+          onClick={[Function]}
+          scope="col"
+        >
+          Email
+          <img
+            alt="caret"
+            className="table-caret"
+            src="caret-r.svg"
+          />
+        </th>
+        <th
+          onClick={[Function]}
+          scope="col"
+        >
+          Phone
+          <img
+            alt="caret"
+            className="table-caret"
+            src="caret-r.svg"
+          />
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="bg-danger"
+        onClick={[Function]}
+      >
+        <td>
+          101
+        </td>
+        <td>
+          Sue
+        </td>
+        <td>
+          Corson
+        </td>
+        <td>
+          DWhalley@in.gov
+        </td>
+        <td>
+          (612)211-6296
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

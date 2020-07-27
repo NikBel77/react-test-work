@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="selectedPerson"
+  >
+    Selected user: 
+    <b>
+      Sue Corson
+    </b>
+    <br />
+    Description:
+    <br />
+    <textarea
+      readOnly="readonly"
+      value="et lacus magna dolor..."
+    />
+    <address>
+      City: 
+      <b>
+        Waukesha
+      </b>
+      <br />
+      State: 
+      <b>
+        WI
+      </b>
+      <br />
+      Address: 
+      <b>
+        9792 Mattis Ct
+      </b>
+      <br />
+      Zip: 
+      <b>
+        22178
+      </b>
+      <br />
+    </address>
+  </div>
+</div>
+`;
+
+exports[`snapshot 2 1`] = `
+<div
+  className="container"
+>
+  <p>
+    no user address
+  </p>
+</div>
+`;
